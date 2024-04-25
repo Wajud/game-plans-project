@@ -3,7 +3,7 @@ import MobileHeader from "@/app/components/MobileHeader";
 
 export default function Home() {
   return (
-    <>
+    <div className="max-w-[32rem]">
       <div className="bg-blue-100 h-[66vh] md:hidden"></div>
       <div className="w-[90%] md:w-full px-4 md:pr-8 py-8 absolute md:static top-24 mt-[6px] left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 rounded-md bg-white">
         <h1 className="font-bold text-3xl mb-2">Personal info</h1>
@@ -58,10 +58,10 @@ export default function Home() {
         </form>
       </div>
       <div className="flex justify-end px-6 py-3 md:mt-20">
-        <button className="bg-[#1C65A3] text-white font-semibold px-4 py-2 rounded-md">
+        <button className="bg-[#1C65A3] text-white px-4 py-2 rounded-md tracking-widest font-medium">
           Next Step
         </button>
       </div>
-    </>
+    </div>
   );
 }

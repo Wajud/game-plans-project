@@ -1,24 +1,24 @@
+"use client";
 import { links } from "@/app/components/MobileNavlinks";
 import Link from "next/link";
 import Image from "next/image";
 import DesktopBg from "@/app/assets/images/bg-sidebar-desktop.svg";
-
+import { usePathname } from "next/navigation";
 const DesktopSideBar = () => {
+  const pathname = usePathname();
   return (
     <div className="relative z-20 top-[2vh] left-4 w-full h-[96vh] rounded-xl bgDesktop">
-      {/* <div className="absolute h-[96vh] left-2 top-[2vh]">
-        <Image
-          src={DesktopBg}
-          alt="desktop-bg"
-          className="w-full h-full object-fill"
-        />
-      </div> */}
-
       <ul className="px-6 pl-8 pt-12 flex flex-col gap-6 ">
         {links.map((link) => (
           <li>
-            <Link href="/" className="flex gap-4 items-center">
-              <p className="w-8 h-8 text-center flex justify-center items-center text-white text-sm font-semibold rounded-full border-2 border-gray-300">
+            <Link href={link.href} className="flex gap-4 items-center">
+              <p
+                className={`w-8 h-8 text-center flex justify-center items-center text-white text-sm font-semibold rounded-full border-2  ${
+                  link.href === pathname
+                    ? "bg-blue-200 border-blue-200 text-black"
+                    : "bg-transparent"
+                }`}
+              >
                 {link.title}
               </p>
               <div>

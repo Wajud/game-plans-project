@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <DesktopSideBar />
         </div>
 
-        <div className="md:self-center">{children}</div>
+        <div className="md:self-center md:w-[70%]">{children}</div>
       </body>
     </html>
   );

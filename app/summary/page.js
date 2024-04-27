@@ -1,11 +1,23 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
-const Summary = () => {
+import { Inter } from "next/font/google";
+import SummaryPage from "@/app/components/SummaryPage";
+import Thankyou from "@/app/components/Thankyou";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const page = () => {
+  const [showThanks, setShowThanks] = useState(true);
   return (
     <div>
-      <h1>Summary Page</h1>
+      {showThanks ? (
+        <SummaryPage setShowThanks={setShowThanks} />
+      ) : (
+        <Thankyou />
+      )}
     </div>
   );
 };
 
-export default Summary;
+export default page;

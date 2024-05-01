@@ -1,8 +1,6 @@
 "use client";
 import { links } from "@/app/components/MobileNavlinks";
 import Link from "next/link";
-import Image from "next/image";
-import DesktopBg from "@/app/assets/images/bg-sidebar-desktop.svg";
 import { usePathname } from "next/navigation";
 const DesktopSideBar = () => {
   const pathname = usePathname();

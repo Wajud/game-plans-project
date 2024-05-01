@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import MobileHeader from "@/app/components/MobileHeader";
 import DesktopSideBar from "./components/DesktopNavlinks";
+import { ReduxProvider } from "@/redux/Provider";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "400"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
           <DesktopSideBar />
         </div>
 
-        <div className="md:self-center md:w-[70%]">{children}</div>
+        <div className="md:self-center md:w-[70%]">
+          <ReduxProvider>{children}</ReduxProvider>
+        </div>
       </body>
     </html>
   );

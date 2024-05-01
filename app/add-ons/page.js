@@ -1,15 +1,44 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { add, remove } from "@/redux/features/addOnsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Plans = () => {
   const [onlineService, setOnlineService] = useState(false);
   const [largerStorage, setLargerStorage] = useState(false);
   const [customizableProfile, setCustomizableProfile] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const addOns = useSelector((store) => store.addOnsSliceReducer);
+
+  function handleOnlineService(e) {
+    setOnlineService(e.target.checked);
+    if (e.target.checked) {
+      dispatch(add(e.target.name));
+    } else {
+      dispatch(remove(e.target.name));
+    }
+  }
+
+  function handleLargerStorage(e) {
+    setLargerStorage(e.target.checked);
+    if (e.target.checked) {
+      dispatch(add(e.target.name));
+    } else {
+      dispatch(remove(e.target.name));
+    }
+  }
+
+  function handleCustomizableProfile(e) {
+    setCustomizableProfile(e.target.checked);
+    if (e.target.checked) {
+      dispatch(add(e.target.name));
+    } else {
+      dispatch(remove(e.target.name));
+    }
+  }
+
   return (
     <div className="max-w-[32rem]">
       <div className="bg-blue-100 h-[66vh] md:hidden"></div>
@@ -23,8 +52,9 @@ const Plans = () => {
 
         <form className="mt-6 flex flex-col gap-4">
           {/* Online Service */}
-          <div
-            className={`flex gap-4 items-center border border-gray-200 p-2 rounded-md ${
+          <label
+            htmlFor="online-service"
+            className={`cursor-pointer flex gap-4 items-center border border-gray-200 p-2 rounded-md ${
               onlineService
                 ? "border-blue-700 bg-blue-50"
                 : "border-gray- bg-transparent"
@@ -32,8 +62,9 @@ const Plans = () => {
           >
             <input
               type="checkbox"
-              onChange={(e) => setOnlineService(e.target.checked)}
-              value={onlineService ? 1 : 0}
+              name="online-service"
+              id="online-service"
+              onChange={handleOnlineService}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Online service</h2>
@@ -42,12 +73,13 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">$1/mo</p>
-          </div>
+          </label>
           {/* End of Online Service */}
 
           {/* Larger Storage */}
-          <div
-            className={`flex gap-6 items-center border border-gray-200 p-2 rounded-md ${
+          <label
+            htmlFor="larger-storage"
+            className={`cursor-pointer flex gap-6 items-center border border-gray-200 p-2 rounded-md ${
               largerStorage
                 ? "border-blue-700 bg-blue-50"
                 : "border-gray- bg-transparent"
@@ -55,8 +87,9 @@ const Plans = () => {
           >
             <input
               type="checkbox"
-              onChange={(e) => setLargerStorage(e.target.checked)}
-              value={largerStorage ? 2 : 0}
+              name="larger-storage"
+              id="larger-storage"
+              onChange={handleLargerStorage}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Larger storage</h2>
@@ -65,13 +98,14 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">$2/mo</p>
-          </div>
+          </label>
 
           {/* End of Larger Storage */}
 
           {/* Customizable Profile */}
-          <div
-            className={`flex gap-6 items-center border border-gray-200 p-2 rounded-md ${
+          <label
+            htmlFor="customizable-profile"
+            className={`cursor-pointer flex gap-6 items-center border border-gray-200 p-2 rounded-md ${
               customizableProfile
                 ? "border-blue-700 bg-blue-50"
                 : "border-gray- bg-transparent"
@@ -79,8 +113,9 @@ const Plans = () => {
           >
             <input
               type="checkbox"
-              onChange={(e) => setCustomizableProfile(e.target.checked)}
-              value={customizableProfile ? 2 : 0}
+              name="customizable-profile"
+              id="customizable-profile"
+              onChange={handleCustomizableProfile}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Customizable Profile</h2>
@@ -89,7 +124,7 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">$2/mo</p>
-          </div>
+          </label>
           {/* End of Customizable Profile */}
         </form>
 

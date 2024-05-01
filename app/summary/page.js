@@ -5,10 +5,16 @@ import { Inter } from "next/font/google";
 import SummaryPage from "@/app/components/SummaryPage";
 import Thankyou from "@/app/components/Thankyou";
 
+import { useSelector } from "react-redux";
+import { add } from "@/redux/features/addOnsSlice";
+
 const inter = Inter({ subsets: ["latin"] });
 
 const page = () => {
   const [showThanks, setShowThanks] = useState(true);
+
+  const addOns = useSelector((store) => store.addOnsSliceReducer);
+  console.log(addOns);
   return (
     <div>
       {showThanks ? (

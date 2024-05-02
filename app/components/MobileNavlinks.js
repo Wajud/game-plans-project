@@ -30,8 +30,9 @@ const MobileNavlinks = () => {
   const pathname = usePathname();
   return (
     <ul className="flex justify-center gap-4">
-      {links.map((link) => (
+      {links.map((link, index) => (
         <li
+          key={index}
           className={`w-8 h-8 text-center flex justify-center items-center text-white rounded-full border-2 ${
             link.href === pathname
               ? "bg-blue-200 border-blue-200 text-black"

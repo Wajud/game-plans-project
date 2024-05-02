@@ -6,7 +6,6 @@ import SummaryPage from "@/app/components/SummaryPage";
 import Thankyou from "@/app/components/Thankyou";
 
 import { useSelector } from "react-redux";
-import { add } from "@/redux/features/addOnsSlice";
 
 const inter = Inter({ subsets: ["latin"] });
 

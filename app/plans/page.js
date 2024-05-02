@@ -24,7 +24,7 @@ const Plans = () => {
             href="/"
             className="md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md hover:bg-blue-50 hover:border-blue-800"
           >
-            <Image src={arcadeImage} />
+            <Image src={arcadeImage} alt="arcade image" />
             <div>
               <p className="font-semibold -mb-1 md:mt-6">Arcade</p>
               <small className="text-xs font-semibold text-gray-400">
@@ -38,7 +38,7 @@ const Plans = () => {
             href="/"
             className="md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md  hover:bg-blue-50 hover:border-blue-800"
           >
-            <Image src={advancedImage} />
+            <Image src={advancedImage} alt="advanced image" />
             <div>
               <p className="font-semibold -mb-1 md:mt-6">Advanced</p>
               <small className="text-xs font-semibold text-gray-400">
@@ -51,7 +51,7 @@ const Plans = () => {
             href="/"
             className="md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md  hover:bg-blue-50 hover:border-blue-800"
           >
-            <Image src={proImage} />
+            <Image src={proImage} alt="pro image" />
             <div>
               <p className="font-semibold -mb-1 md:mt-6">Pro</p>
               <small className="text-xs font-semibold text-gray-400">

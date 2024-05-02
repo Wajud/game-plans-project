@@ -27,21 +27,22 @@ export const addOnsSlice = createSlice({
     add: (state, action) => {
       if (state.some((addon) => addon.title === action.payload)) {
         return;
+      } else {
+        const addedAddon = allAddOns.filter(
+          (addon) => addon.title === action.payload
+        )[0];
+
+        state.push(addedAddon);
       }
 
-      const addedAddon = allAddOns.filter(
-        (addon) => addon.title === action.payload
-      )[0];
-
-      state.push(addedAddon);
       console.log("add ons state ", state);
     },
 
-    remove: (state, payload) => {
+    remove: (state, action) => {
       const removedAddOnIndex = state.findIndex(
-        (addon) => addon.title === payload.action
+        (addon) => addon.title === action.payload
       );
-      // const removedAddon =
+
       state.splice(removedAddOnIndex, 1);
       console.log("add ons state ", state);
     },

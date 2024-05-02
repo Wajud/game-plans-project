@@ -1,7 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { add, remove } from "@/redux/features/addOnsSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+export const addOnsPrices = {
+  onlineService: {
+    monthlyRate: 1,
+    yearlyrate: 10,
+  },
+
+  largerStorage: {
+    monthlyRate: 2,
+    yearlyrate: 20,
+  },
+
+  customizableProfile: {
+    monthlyRate: 2,
+    yearlyrate: 20,
+  },
+};
 
 const Plans = () => {
   const [onlineService, setOnlineService] = useState(false);
@@ -12,31 +29,50 @@ const Plans = () => {
 
   const addOns = useSelector((store) => store.addOnsSliceReducer);
 
+  useEffect(() => {
+    for (let i = 0; i < addOns.length; i++) {
+      if (addOns[i].title === "online-service") {
+        setOnlineService(true);
+      }
+
+      if (addOns[i].title === "larger-storage") {
+        setLargerStorage(true);
+      }
+
+      if (addOns[i].title === "customizable-profile") {
+        setCustomizableProfile(true);
+      }
+    }
+  }, []);
+
   function handleOnlineService(e) {
-    setOnlineService(e.target.checked);
     if (e.target.checked) {
       dispatch(add(e.target.name));
     } else {
       dispatch(remove(e.target.name));
     }
+
+    setOnlineService(e.target.checked);
   }
 
   function handleLargerStorage(e) {
-    setLargerStorage(e.target.checked);
     if (e.target.checked) {
       dispatch(add(e.target.name));
     } else {
       dispatch(remove(e.target.name));
     }
+
+    setLargerStorage(e.target.checked);
   }
 
   function handleCustomizableProfile(e) {
-    setCustomizableProfile(e.target.checked);
     if (e.target.checked) {
       dispatch(add(e.target.name));
     } else {
       dispatch(remove(e.target.name));
     }
+
+    setCustomizableProfile(e.target.checked);
   }
 
   return (
@@ -65,6 +101,7 @@ const Plans = () => {
               name="online-service"
               id="online-service"
               onChange={handleOnlineService}
+              checked={onlineService}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Online service</h2>
@@ -72,7 +109,9 @@ const Plans = () => {
                 Access to multiplayer games
               </small>
             </div>
-            <p className="text-sm text-blue-500">$1/mo</p>
+            <p className="text-sm text-blue-500">
+              ${addOnsPrices.onlineService.monthlyRate}/mo
+            </p>
           </label>
           {/* End of Online Service */}
 
@@ -90,6 +129,7 @@ const Plans = () => {
               name="larger-storage"
               id="larger-storage"
               onChange={handleLargerStorage}
+              checked={largerStorage}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Larger storage</h2>
@@ -97,7 +137,9 @@ const Plans = () => {
                 Extra 1TB of cloud save
               </small>
             </div>
-            <p className="text-sm text-blue-500">$2/mo</p>
+            <p className="text-sm text-blue-500">
+              {addOnsPrices.largerStorage.monthlyRate}/mo
+            </p>
           </label>
 
           {/* End of Larger Storage */}
@@ -116,6 +158,7 @@ const Plans = () => {
               name="customizable-profile"
               id="customizable-profile"
               onChange={handleCustomizableProfile}
+              checked={customizableProfile}
             />
             <div className="flex-1">
               <h2 className="font-semibold -mb-1">Customizable Profile</h2>
@@ -123,7 +166,9 @@ const Plans = () => {
                 Custom theme on your profile
               </small>
             </div>
-            <p className="text-sm text-blue-500">$2/mo</p>
+            <p className="text-sm text-blue-500">
+              ${addOnsPrices.customizableProfile.monthlyRate}/mo
+            </p>
           </label>
           {/* End of Customizable Profile */}
         </form>

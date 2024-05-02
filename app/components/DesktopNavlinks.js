@@ -7,8 +7,8 @@ const DesktopSideBar = () => {
   return (
     <div className="relative z-20 top-[2vh] left-4 w-full h-[96vh] rounded-xl bgDesktop">
       <ul className="px-6 pl-8 pt-12 flex flex-col gap-6 ">
-        {links.map((link) => (
-          <li>
+        {links.map((link, index) => (
+          <li key={index}>
             <Link href={link.href} className="flex gap-4 items-center">
               <p
                 className={`w-8 h-8 text-center flex justify-center items-center text-white text-sm font-semibold rounded-full border-2  ${

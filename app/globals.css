@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-} */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -37,4 +32,36 @@ body {
   background-image: url("assets/images/bg-sidebar-desktop.svg");
   background-size: cover ;
   background-position: 50%;
+}
+
+.slide-to-left{
+  animation-name: slideToLeft;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideToLeft {
+  from{
+    left: 20px;
+  }
+
+  to{
+    left: 4px
+  }
+}
+
+.slide-to-right{
+  animation-name: slideToRight;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideToRight {
+  from{
+    left: 4px;
+  }
+
+  to{
+    left: 20px;
+  }
 }

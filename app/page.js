@@ -1,17 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
+import { signIn } from "@/redux/features/userSlice";
 
 export default function Home() {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const user = useSelector((store) => store.userSliceReducer);
+
+  const [userName, setUserName] = useState(user?.name ? user.name : "");
+  const [userEmail, setUserEmail] = useState(user?.email ? user.email : "");
+  const [userPhone, setUserPhone] = useState(user?.phone ? user.phone : "");
 
   const [userNameError, setUserNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
 
   const router = useRouter();
+
+  function createUser(name, email, phone) {
+    const user = { name, email, phone };
+    return user;
+  }
+
+  const dispatch = useDispatch();
 
   function handleHomeNav() {
     if (!userName) {
@@ -20,17 +31,21 @@ export default function Home() {
       return;
     }
 
-    if (!email) {
+    if (!userEmail) {
       setEmailError(true);
       setTimeout(() => setEmailError(false), 3000);
       return;
     }
 
-    if (!phone) {
+    if (!userPhone) {
       setPhoneError(true);
       setTimeout(() => setPhoneError(false), 3000);
       return;
     }
+
+    const user = createUser(userName, userEmail, userPhone);
+
+    dispatch(signIn(user));
 
     router.push("/plans");
   }
@@ -83,8 +98,8 @@ export default function Home() {
               id="email"
               placeholder="e.g stephenking@lorem.com"
               className="py-2 px-2 text-gray-400 block border border-gray-200 w-full rounded-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
             />
           </div>
 
@@ -105,8 +120,8 @@ export default function Home() {
               id="phoneNumber"
               placeholder="e.g +1 234 567 890"
               className="py-2 px-2 text-gray-400 block border border-gray-200 w-full rounded-md"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={userPhone}
+              onChange={(e) => setUserPhone(e.target.value)}
             />
           </div>
         </form>

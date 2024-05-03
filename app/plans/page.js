@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -6,9 +7,13 @@ import advancedImage from "@/app/assets/images/icon-advanced.svg";
 import proImage from "@/app/assets/images/icon-pro.svg";
 import Link from "next/link";
 
+import { useSelector } from "react-redux";
+
 const inter = Inter({ subsets: ["latin"] });
 
 const Plans = () => {
+  const user = useSelector((store) => store.userSliceReducer);
+  console.log("user is shouting from plans page", user);
   return (
     <div className="max-w-[32rem]">
       <div className="bg-blue-100 h-[66vh] md:hidden"></div>

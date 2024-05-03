@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { add, remove } from "@/redux/features/addOnsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -176,10 +177,14 @@ const Plans = () => {
         {/* End of Plans Section */}
       </div>
       <div className="flex justify-between items-center px-6 py-3 md:mt-20">
-        <p className="text-gray-400 font-semibold">Go Back</p>
-        <button className="bg-[#1C65A3] text-white font-medium px-4 py-2 rounded-md tracking-widest">
-          Next Step
-        </button>
+        <Link href="/plans">
+          <p className="text-gray-400 font-semibold">Go Back</p>
+        </Link>
+        <Link href="/summary">
+          <button className="bg-[#1C65A3] text-white font-medium px-4 py-2 rounded-md tracking-widest">
+            Next Step
+          </button>
+        </Link>
       </div>
     </div>
   );

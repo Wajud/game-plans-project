@@ -12,8 +12,6 @@ import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
 
 const Plans = () => {
-  const user = useSelector((store) => store.userSliceReducer);
-  console.log("user is shouting from plans page", user);
   return (
     <div className="max-w-[32rem]">
       <div className="bg-blue-100 h-[66vh] md:hidden"></div>
@@ -78,10 +76,14 @@ const Plans = () => {
         {/* End of Plans Section */}
       </div>
       <div className="flex justify-between items-center px-6 py-3 md:mt-20">
-        <p className="text-gray-400 font-semibold">Go Back</p>
-        <button className="bg-[#1C65A3] text-white font-medium px-4 py-2 rounded-md tracking-widest">
-          Next Step
-        </button>
+        <Link href="/">
+          <p className="text-gray-400 font-semibold">Go Back</p>
+        </Link>
+        <Link href="/add-ons">
+          <button className="bg-[#1C65A3] text-white font-medium px-4 py-2 rounded-md tracking-widest">
+            Next Step
+          </button>
+        </Link>
       </div>
     </div>
   );

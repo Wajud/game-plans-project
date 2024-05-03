@@ -5,17 +5,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "@/redux/features/userSlice";
 
 export default function Home() {
+  // Getting the current user from the store
   const user = useSelector((store) => store.userSliceReducer);
+
+  //Setting the value (or initial value) of user details on the U.I
 
   const [userName, setUserName] = useState(user?.name ? user.name : "");
   const [userEmail, setUserEmail] = useState(user?.email ? user.email : "");
   const [userPhone, setUserPhone] = useState(user?.phone ? user.phone : "");
 
+  // Managaging the state of error showing
   const [userNameError, setUserNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
 
   const router = useRouter();
+
+  //Creating a user object
 
   function createUser(name, email, phone) {
     const user = { name, email, phone };
@@ -23,6 +29,8 @@ export default function Home() {
   }
 
   const dispatch = useDispatch();
+
+  //Handling the Navigation
 
   function handleHomeNav() {
     if (!userName) {
@@ -43,8 +51,10 @@ export default function Home() {
       return;
     }
 
+    //create a user using the createUser function and the details provided by the client
     const user = createUser(userName, userEmail, userPhone);
 
+    //saving in user to the redux store
     dispatch(signIn(user));
 
     router.push("/plans");

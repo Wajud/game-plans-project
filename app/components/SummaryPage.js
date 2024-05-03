@@ -1,6 +1,6 @@
 "use client";
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
+
+import Link from "next/link";
 
 const Plans = ({ setShowThanks }) => {
   return (
@@ -18,7 +18,9 @@ const Plans = ({ setShowThanks }) => {
           <div className="flex items-center">
             <div className=" flex-1">
               <h2 className="font-semibold -mb-1">Arcade (Monthly)</h2>
-              <small className="text-gray-400">Change</small>
+              <Link href="/plans">
+                <small className="text-gray-400 hover:underline">Change</small>
+              </Link>
             </div>
             <p className="font-semibold">$9/mo</p>
           </div>
@@ -43,7 +45,9 @@ const Plans = ({ setShowThanks }) => {
         {/* End of Summary Section */}
       </div>
       <div className="bg-white flex justify-between items-center px-6 py-3 md:mt-20">
-        <p className="text-gray-400 font-semibold">Go Back</p>
+        <Link href="/add-ons">
+          <p className="text-gray-400 font-semibold">Go Back</p>
+        </Link>
         <button
           className="bg-blue-400 text-white font-medium px-4 py-2 rounded-md tracking-widest"
           onClick={() => setShowThanks(false)}

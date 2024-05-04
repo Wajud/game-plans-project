@@ -34,8 +34,6 @@ export const addOnsSlice = createSlice({
 
         state.push(addedAddon);
       }
-
-      console.log("add ons state ", state);
     },
 
     remove: (state, action) => {
@@ -44,7 +42,6 @@ export const addOnsSlice = createSlice({
       );
 
       state.splice(removedAddOnIndex, 1);
-      console.log("add ons state ", state);
     },
   },
 });

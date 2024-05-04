@@ -4,12 +4,10 @@ import { plansPrices } from "../plans/page";
 import { addOnsPrices } from "../add-ons/page";
 
 import Link from "next/link";
-import { add } from "@/redux/features/addOnsSlice";
 
 const SummaryPage = ({ setShowThanks }) => {
   const activePlan = useSelector((store) => store.planSliceReducer);
   const activeAddOns = useSelector((store) => store.addOnsSliceReducer);
-  console.log("activeAddonsFromSummaryPage: ", activeAddOns);
 
   function turnPlantoPropercase(plan) {
     if (plan === "arcade") {
@@ -137,7 +135,7 @@ const SummaryPage = ({ setShowThanks }) => {
         ) : (
           <div className="flex justify-between items-center mt-4 px-4">
             <p className="text-gray-400 text-sm">{`Total (per ${
-              activeAddOns.basis === "yearly" ? "year" : "month"
+              activePlan.basis === "yearly" ? "year" : "month"
             })`}</p>
 
             <p className="text-[#3244ac] font-semibold text-lg">{`${

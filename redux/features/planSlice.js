@@ -9,7 +9,6 @@ export const planSlice = createSlice({
     updatePlan: (state, action) => {
       state.plan = action.payload.plan;
       state.basis = action.payload.basis;
-      console.log(state);
     },
   },
 });

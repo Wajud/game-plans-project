@@ -76,9 +76,11 @@ const Plans = () => {
         <section className="flex flex-col md:flex-row gap-4 py-8 pb-2">
           {/* Arcade Plan */}
           <div
-            className={`cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md hover:bg-blue-50 hover:border-blue-800 ${
-              activePlan === "arcade" ? "bg-blue-50 border border-blue-800" : ""
-            }`}
+            className={
+              activePlan === "arcade"
+                ? `transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border bg-blue-50  border-blue-800 shadow-md rounded-md`
+                : "transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border-gray-100 shadow-md rounded-md hover:bg-blue-50 hover:border hover:border-blue-800"
+            }
             onClick={() => setActivePlan("arcade")}
           >
             <Image src={arcadeImage} alt="arcade image" />
@@ -100,12 +102,11 @@ const Plans = () => {
           {/* Advanced Plan */}
 
           <div
-            className={`cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md  hover:bg-blue-50 hover:border-blue-800 ${
+            className={
               activePlan === "advanced"
-                ? " bg-blue-50 border border-blue-800"
-                : ""
-            }`}
-            data-plan="advanced"
+                ? `transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border bg-blue-50  border-blue-800 shadow-md rounded-md`
+                : "transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border-gray-100 shadow-md rounded-md hover:bg-blue-50 hover:border hover:border-blue-800"
+            }
             onClick={() => setActivePlan("advanced")}
           >
             <Image src={advancedImage} alt="advanced image" />
@@ -126,10 +127,11 @@ const Plans = () => {
 
           {/* Pro Plan */}
           <div
-            className={`cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border border-gray-100 shadow-md rounded-md  hover:bg-blue-50 hover:border-blue-800 ${
-              activePlan === "pro" ? " bg-blue-50 border border-blue-800" : ""
-            }`}
-            data-plan="pro"
+            className={
+              activePlan === "pro"
+                ? `transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border bg-blue-50  border-blue-800 shadow-md rounded-md`
+                : "transition-all cursor-pointer md:w-[33%] flex md:flex-col gap-4 py-4 px-4 border-gray-100 shadow-md rounded-md hover:bg-blue-50 hover:border hover:border-blue-800"
+            }
             onClick={() => setActivePlan("pro")}
           >
             <Image src={proImage} alt="pro image" />

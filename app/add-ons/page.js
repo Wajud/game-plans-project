@@ -29,7 +29,7 @@ const page = () => {
   const dispatch = useDispatch();
 
   const activePlan = useSelector((store) => store.planSliceReducer);
-  console.log(activePlan);
+
   const basis = activePlan.basis;
 
   const addOns = useSelector((store) => store.addOnsSliceReducer);

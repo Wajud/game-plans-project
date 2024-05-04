@@ -13,7 +13,7 @@ const page = () => {
   const [showThanks, setShowThanks] = useState(true);
 
   const addOns = useSelector((store) => store.addOnsSliceReducer);
-  console.log(addOns);
+  console.log("add on: ", addOns);
   return (
     <div>
       {showThanks ? (

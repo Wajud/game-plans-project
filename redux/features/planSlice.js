@@ -7,7 +7,9 @@ export const planSlice = createSlice({
   initialState,
   reducers: {
     updatePlan: (state, action) => {
-      console.log(action.payload);
+      state.plan = action.payload.plan;
+      state.basis = action.payload.basis;
+      console.log(state);
     },
   },
 });

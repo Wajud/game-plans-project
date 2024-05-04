@@ -1,8 +1,77 @@
 "use client";
+import { useSelector } from "react-redux";
+import { plansPrices } from "../plans/page";
+import { addOnsPrices } from "../add-ons/page";
 
 import Link from "next/link";
+import { add } from "@/redux/features/addOnsSlice";
 
-const Plans = ({ setShowThanks }) => {
+const SummaryPage = ({ setShowThanks }) => {
+  const activePlan = useSelector((store) => store.planSliceReducer);
+  const activeAddOns = useSelector((store) => store.addOnsSliceReducer);
+  console.log("activeAddonsFromSummaryPage: ", activeAddOns);
+
+  function turnPlantoPropercase(plan) {
+    if (plan === "arcade") {
+      return "Arcade";
+    } else if (plan === "advanced") {
+      return "Advanced";
+    } else {
+      return "Pro";
+    }
+  }
+
+  function turnBasistoPropercase(basis) {
+    if (basis === "monthly") {
+      return "Monthly";
+    } else {
+      return "Yearly";
+    }
+  }
+
+  function turnAddOntoPropercase(addOn) {
+    if (addOn === "online-service") {
+      return "Online Service";
+    } else if (addOn === "larger-storage") {
+      return "Larger Storage";
+    } else {
+      return "Customizable Profile";
+    }
+  }
+
+  function turnAddOnToCamelCase(addOn) {
+    if (addOn === "online-service") {
+      return "onlineService";
+    } else if (addOn === "larger-storage") {
+      return "largerStorage";
+    } else {
+      return "customizableProfile";
+    }
+  }
+
+  const setPlanPrice = (plan, basis) => {
+    return plansPrices[plan][basis + "Rate"];
+  };
+
+  const chosenPlanPrice = activePlan.plan
+    ? setPlanPrice(activePlan.plan, activePlan.basis)
+    : "9";
+
+  function getTotalAddOnsPrice(addons, basis) {
+    let TotalAddOnsPrice = 0;
+    addons.forEach((addOn) => {
+      let addOnPrice = 0;
+      if (basis === "monthly") {
+        addOnPrice = addOn.monthlyRate;
+      } else {
+        addOnPrice = addOn.yearlyrate;
+      }
+
+      TotalAddOnsPrice += addOnPrice;
+    });
+    return TotalAddOnsPrice;
+  }
+
   return (
     <div className={`max-w-[32rem]`}>
       <div className="bg-blue-100 h-[66vh] md:hidden"></div>
@@ -17,30 +86,66 @@ const Plans = ({ setShowThanks }) => {
         <div className="mt-8 bg-blue-50 p-4 rounded-md">
           <div className="flex items-center">
             <div className=" flex-1">
-              <h2 className="font-semibold -mb-1">Arcade (Monthly)</h2>
+              <h2 className="font-semibold -mb-1">{`${
+                activePlan.plan
+                  ? turnPlantoPropercase(activePlan.plan)
+                  : "Arcade"
+              } (${
+                activePlan.basis
+                  ? turnBasistoPropercase(activePlan.basis)
+                  : "Monthly"
+              })`}</h2>
               <Link href="/plans">
                 <small className="text-gray-400 hover:underline">Change</small>
               </Link>
             </div>
-            <p className="font-semibold">$9/mo</p>
+            <p className="font-semibold">{`$${chosenPlanPrice}/${
+              activePlan.basis === "yearly" ? "yr" : "mo"
+            }`}</p>
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-300 flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <p className="text-gray-400 -mb-1">Online service</p>
-              <small>+$1/mo</small>
+          {activeAddOns.length > 0 ? (
+            <div className="mt-4 pt-4 border-t border-gray-300 flex flex-col gap-4">
+              {activeAddOns.map((addon, index) => (
+                <div className="flex justify-between items-center" key={index}>
+                  <p className="text-gray-400 -mb-1">
+                    {turnAddOntoPropercase(addon.title)}
+                  </p>
+                  <small>{`+${
+                    activePlan.basis === "monthly"
+                      ? addOnsPrices[turnAddOnToCamelCase(addon.title)]
+                          .monthlyRate
+                      : addOnsPrices[turnAddOnToCamelCase(addon.title)]
+                          .yearlyRate
+                  }/${activePlan.basis === "monthly" ? "mo" : "yr"}`}</small>
+                </div>
+              ))}
             </div>
+          ) : (
+            ""
+          )}
+        </div>
+        {activeAddOns.length == 0 ? (
+          <div className="flex justify-between items-center mt-4 px-4">
+            <p className="text-gray-400 text-sm">{`Total (per ${
+              activeAddOns.basis === "yearly" ? "year" : "month"
+            })`}</p>
 
-            <div className="flex justify-between items-center">
-              <p className="text-gray-400 -mb-1">Larger storage</p>
-              <small>+$2/mo</small>
-            </div>
+            <p className="text-[#3244ac] font-semibold text-lg">{`$${chosenPlanPrice}/${
+              activePlan.basis === "yearly" ? "yr" : "mo"
+            }`}</p>
           </div>
-        </div>
+        ) : (
+          <div className="flex justify-between items-center mt-4 px-4">
+            <p className="text-gray-400 text-sm">{`Total (per ${
+              activeAddOns.basis === "yearly" ? "year" : "month"
+            })`}</p>
 
-        <div className="flex justify-between items-center px-4 mt-6">
-          <h2 className="text-gray-300 ">Total (per month)</h2>
-          <p className="text-blue-500 font-semibold">$12/mo</p>
-        </div>
+            <p className="text-[#3244ac] font-semibold text-lg">{`${
+              chosenPlanPrice +
+              getTotalAddOnsPrice(activeAddOns, activePlan.basis)
+            }/${activePlan.basis === "yearly" ? "yr" : "mo"}`}</p>
+          </div>
+        )}
 
         {/* End of Summary Section */}
       </div>
@@ -49,7 +154,7 @@ const Plans = ({ setShowThanks }) => {
           <p className="text-gray-400 font-semibold">Go Back</p>
         </Link>
         <button
-          className="bg-blue-400 text-white font-medium px-4 py-2 rounded-md tracking-widest"
+          className="bg-[#3244ac] text-white font-medium px-4 py-2 rounded-md tracking-widest"
           onClick={() => setShowThanks(false)}
         >
           Confirm
@@ -59,4 +164,4 @@ const Plans = ({ setShowThanks }) => {
   );
 };
 
-export default Plans;
+export default SummaryPage;

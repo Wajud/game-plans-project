@@ -7,26 +7,30 @@ import { useDispatch, useSelector } from "react-redux";
 export const addOnsPrices = {
   onlineService: {
     monthlyRate: 1,
-    yearlyrate: 10,
+    yearlyRate: 10,
   },
 
   largerStorage: {
     monthlyRate: 2,
-    yearlyrate: 20,
+    yearlyRate: 20,
   },
 
   customizableProfile: {
     monthlyRate: 2,
-    yearlyrate: 20,
+    yearlyRate: 20,
   },
 };
 
-const Plans = () => {
+const page = () => {
   const [onlineService, setOnlineService] = useState(false);
   const [largerStorage, setLargerStorage] = useState(false);
   const [customizableProfile, setCustomizableProfile] = useState(false);
 
   const dispatch = useDispatch();
+
+  const activePlan = useSelector((store) => store.planSliceReducer);
+  console.log(activePlan);
+  const basis = activePlan.basis;
 
   const addOns = useSelector((store) => store.addOnsSliceReducer);
 
@@ -52,7 +56,6 @@ const Plans = () => {
     } else {
       dispatch(remove(e.target.name));
     }
-
     setOnlineService(e.target.checked);
   }
 
@@ -111,7 +114,10 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">
-              ${addOnsPrices.onlineService.monthlyRate}/mo
+              $
+              {basis === "yearly"
+                ? `${addOnsPrices.onlineService.yearlyRate}/yr`
+                : `${addOnsPrices.onlineService.monthlyRate}/mo`}
             </p>
           </label>
           {/* End of Online Service */}
@@ -139,7 +145,10 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">
-              {addOnsPrices.largerStorage.monthlyRate}/mo
+              $
+              {basis === "yearly"
+                ? `${addOnsPrices.largerStorage.yearlyRate}/yr`
+                : `${addOnsPrices.largerStorage.monthlyRate}/mo`}
             </p>
           </label>
 
@@ -168,7 +177,10 @@ const Plans = () => {
               </small>
             </div>
             <p className="text-sm text-blue-500">
-              ${addOnsPrices.customizableProfile.monthlyRate}/mo
+              $
+              {basis === "yearly"
+                ? `${addOnsPrices.customizableProfile.yearlyRate}/yr`
+                : `${addOnsPrices.customizableProfile.monthlyRate}/mo`}
             </p>
           </label>
           {/* End of Customizable Profile */}
@@ -190,4 +202,4 @@ const Plans = () => {
   );
 };
 
-export default Plans;
+export default page;

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { plansPrices } from "../plans/page";
 import { addOnsPrices } from "../add-ons/page";
@@ -8,6 +9,9 @@ import Link from "next/link";
 const SummaryPage = ({ setShowThanks }) => {
   const activePlan = useSelector((store) => store.planSliceReducer);
   const activeAddOns = useSelector((store) => store.addOnsSliceReducer);
+  const currentUser = useSelector((store) => store.userSliceReducer);
+
+  const [loginError, setLoginError] = useState(false);
 
   function turnPlantoPropercase(plan) {
     if (plan === "arcade") {
@@ -68,6 +72,15 @@ const SummaryPage = ({ setShowThanks }) => {
       TotalAddOnsPrice += addOnPrice;
     });
     return TotalAddOnsPrice;
+  }
+
+  function handleConfirmation() {
+    if (!currentUser.name) {
+      setLoginError(true);
+      return;
+    } else {
+      setShowThanks(true);
+    }
   }
 
   return (
@@ -145,6 +158,21 @@ const SummaryPage = ({ setShowThanks }) => {
           </div>
         )}
 
+        {/* {loginError && ( */}
+        <p
+          className={
+            loginError
+              ? "text-red-400 font-semibold px-4 mt-8 opacity-100"
+              : "text-red-400 font-semibold px-4 mt-8 opacity-0"
+          }
+        >
+          Please return to{" "}
+          <Link href="/" className="underline">
+            Info Page
+          </Link>{" "}
+          and Sign in
+        </p>
+        {/* )} */}
         {/* End of Summary Section */}
       </div>
       <div className="bg-white flex justify-between items-center px-6 py-3 md:mt-20">
@@ -153,7 +181,7 @@ const SummaryPage = ({ setShowThanks }) => {
         </Link>
         <button
           className="bg-[#3244ac] text-white font-medium px-4 py-2 rounded-md tracking-widest"
-          onClick={() => setShowThanks(false)}
+          onClick={handleConfirmation}
         >
           Confirm
         </button>

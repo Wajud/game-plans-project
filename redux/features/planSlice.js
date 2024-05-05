@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  plan: "arcade",
+  basis: "monthly",
+};
 
 export const planSlice = createSlice({
   name: "plan",

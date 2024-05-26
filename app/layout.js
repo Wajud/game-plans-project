@@ -7,8 +7,8 @@ import { ReduxProvider } from "@/redux/Provider";
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "400"] });
 
 export const metadata = {
-  title: "Multi Form Project",
-  description: "NextJs Multi Form Project",
+  title: "Game Plans",
+  description: "NextJs game plan customization project",
 };
 
 export default function RootLayout({ children }) {
